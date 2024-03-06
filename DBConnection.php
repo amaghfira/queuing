@@ -1,68 +1,57 @@
 <?php
-if(!is_dir(__DIR__.'./db'))
-    mkdir(__DIR__.'./db');
-if(!defined('db_file')) define('db_file',__DIR__.'./db/cashier_queuing_db.db');
+if(!defined('db_host')) define('db_host', '185.237.144.56'); // Modify host if necessary
+if(!defined('db_user')) define('db_user', 'u8152743_ipd'); // Modify username
+if(!defined('db_pass')) define('db_pass', 'ipd@6400'); // Modify password
+if(!defined('db_name')) define('db_name', 'u8152743_cashier_queuing_db'); // Modify database name
 if(!defined('tZone')) define('tZone',"Asia/Singapore");
-if(!defined('dZone')) define('dZone',ini_get('date.timezone'));
-function my_udf_md5($string) {
-    return md5($string);
-}
+if(!defined('dZone')) define('dZone',date_default_timezone_get());
 
-Class DBConnection extends SQLite3{
+Class DBConnection extends mysqli {
     protected $db;
-    function __construct(){
-        $this->open(db_file);
-        $this->createFunction('md5', 'my_udf_md5');
-        $this->exec("PRAGMA foreign_keys = ON;");
+    function __construct() {
+        parent::__construct(db_host, db_user, db_pass, db_name);
+        if ($this->connect_error) {
+            die('Connect Error (' . $this->connect_errno . ') ' . $this->connect_error);
+        }
+        $this->query("SET time_zone = '". $this->real_escape_string(tZone) ."'");
 
-        $this->exec("CREATE TABLE IF NOT EXISTS `user_list` (
-            `user_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            `fullname` INTEGER NOT NULL,
-            `username` TEXT NOT NULL,
-            `password` TEXT NOT NULL,
-            `status` INTEGER NOT NULL Default 1,
-            `date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )"); 
-
-        $this->exec("CREATE TABLE IF NOT EXISTS `cashier_list` (
-            `cashier_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            `name` TEXT NOT NULL,
-            `log_status` INTEGER NOT NULL DEFAULT 0,
-            `status` INTEGER NOT NULL DEFAULT 1
-        )");
-        $this->exec("CREATE TABLE IF NOT EXISTS `queue_list` (
-            `queue_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            `queue` TEXT NOT NULL,
-            `customer_name` Text NOT NULL,
-            `status` INTEGER NOT NULL DEFAULT 0,
+        $this->query("CREATE TABLE IF NOT EXISTS `user_list` (
+            `user_id` INT AUTO_INCREMENT PRIMARY KEY,
+            `fullname` VARCHAR(255) NOT NULL,
+            `username` VARCHAR(255) NOT NULL,
+            `password` VARCHAR(255) NOT NULL,
+            `status` INT NOT NULL DEFAULT 1,
             `date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )");
-       
 
-        // $this->exec("CREATE TABLE IF NOT EXISTS `ticket_list` (
-        //     `ticket_id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        //     `ticket_no` TEXT NOT NULL,
-        //     `rp_id` INTEGER NOT NULL,
-        //     `passenger_type` TEXT NOT NULL,
-        //     `price` REAL NOT NULL,
-        //     `date_added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        //     `user_id` INTEGER NULL,
-        //     FOREIGN KEY(`rp_id`) REFERENCES `route_prices`(`rp_id`) ON DELETE SET NULL,
-        //     FOREIGN KEY(`user_id`) REFERENCES `user_list`(`user_id`) ON DELETE SET NULL
-        // )");
+        $this->query("CREATE TABLE IF NOT EXISTS `cashier_list` (
+            `cashier_id` INT AUTO_INCREMENT PRIMARY KEY,
+            `name` VARCHAR(255) NOT NULL,
+            `log_status` INT NOT NULL DEFAULT 0,
+            `status` INT NOT NULL DEFAULT 1
+        )");
 
-        
-        // $this->exec("CREATE TRIGGER IF NOT EXISTS updatedTime_prod AFTER UPDATE on `product_list`
-        // BEGIN
-        //     UPDATE `product_list` SET date_updated = CURRENT_TIMESTAMP where product_id = product_id;
-        // END
-        // ");
+        $this->query("CREATE TABLE IF NOT EXISTS `queue_list` (
+            `queue_id` INT AUTO_INCREMENT PRIMARY KEY,
+            `queue` VARCHAR(255) NOT NULL,
+            `customer_name` VARCHAR(255) NOT NULL,
+            `status` INT NOT NULL DEFAULT 0,
+            `date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )");
 
-        $this->exec("INSERT or IGNORE INTO `user_list` VALUES (1,'Administrator','admin',md5('admin123'),1, CURRENT_TIMESTAMP)");
-
+        $stmt = $this->prepare("INSERT IGNORE INTO `user_list` (`user_id`, `fullname`, `username`, `password`, `status`, `date_created`) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)");
+        $stmt->bind_param("isssi", $user_id, $fullname, $username, $password, $status);
+        $user_id = 1;
+        $fullname = 'Administrator';
+        $username = 'admin';
+        $password = md5('admin123'); // You may want to use a more secure hashing algorithm for passwords
+        $status = 1;
+        $stmt->execute();
+        $stmt->close();
     }
-    function __destruct(){
-         $this->close();
+
+    function __destruct() {
+        $this->close();
     }
 }
 

@@ -17,7 +17,7 @@ Class Actions extends DBConnection{
     function login(){
         extract($_POST);
         $sql = "SELECT * FROM user_list where username = '{$username}' and `password` = '".md5($password)."' ";
-        @$qry = $this->query($sql)->fetchArray();
+        @$qry = $this->query($sql)->fetch_assoc();
         if(!$qry){
             $resp['status'] = "failed";
             $resp['msg'] = "Invalid username or password.";
@@ -38,7 +38,7 @@ Class Actions extends DBConnection{
     function c_login(){
         extract($_POST);
         $sql = "SELECT * FROM cashier_list where cashier_id = '{$cashier_id}'";
-        @$qry = $this->query($sql)->fetchArray();
+        @$qry = $this->query($sql)->fetch_assoc();
         if($qry){
             if($qry['log_status'] == 0){
                 $resp['status'] = "success";
@@ -87,7 +87,7 @@ Class Actions extends DBConnection{
         
 
        
-        @$check= $this->query("SELECT count(user_id) as `count` FROM user_list where `username` = '{$username}' ".($id > 0 ? " and user_id != '{$id}' " : ""))->fetchArray()['count'];
+        @$check= $this->query("SELECT count(user_id) as `count` FROM user_list where `username` = '{$username}' ".($id > 0 ? " and user_id != '{$id}' " : ""))->fetch_assoc()['count'];
         if(@$check> 0){
             $resp['status'] = 'failed';
             $resp['msg'] = "Username already exists.";
@@ -185,7 +185,7 @@ Class Actions extends DBConnection{
         }else{
             $sql = "UPDATE `cashier_list` set {$data} where cashier_id = '{$id}'";
         }
-        @$check= $this->query("SELECT COUNT(cashier_id) as count from `cashier_list` where `name` = '{$name}' ".($id > 0 ? " and cashier_id != '{$id}'" : ""))->fetchArray()['count'];
+        @$check= $this->query("SELECT COUNT(cashier_id) as count from `cashier_list` where `name` = '{$name}' ".($id > 0 ? " and cashier_id != '{$id}'" : ""))->fetch_assoc()['count'];
         if(@$check> 0){
             $resp['status'] ='failed';
             $resp['msg'] = 'Cashier already exists.';
@@ -211,7 +211,7 @@ Class Actions extends DBConnection{
     function delete_cashier(){
         extract($_POST);
         $get = $this->query("SELECT * FROM `cashier_list` where cashier_id = '{$id}'");
-        @$res = $get->fetchArray();
+        @$res = $get->fetch_assoc();
         $is_logged = false;
         if($res){
             $is_logged = $res['log_status'] == 1 ? true : false;
@@ -239,7 +239,7 @@ Class Actions extends DBConnection{
     function save_queue(){
         $code = sprintf("%'.04d",1);
         while(true){
-            $chk = $this->query("SELECT count(queue_id) `count` FROM `queue_list` where queue = '".$code."' and date(date_created) = '".date('Y-m-d')."' ")->fetchArray()['count'];
+            $chk = $this->query("SELECT count(queue_id) `count` FROM `queue_list` where queue = '".$code."' and date(date_created) = '".date('Y-m-d')."' ")->fetch_assoc()['count'];
             if($chk > 0){
                 $code = sprintf("%'.04d",abs($code) + 1);
             }else{
@@ -252,7 +252,7 @@ Class Actions extends DBConnection{
         $save = $this->query($sql);
         if($save){
             $resp['status'] = 'success';
-            $resp['id'] = $this->lastInsertRowID();
+            $resp['id'] = $this->insert_id;
         }else{
             $resp['status'] = 'failed';
             $resp['msg'] = "An error occured. Error: ".$this->lastErrorMsg();
@@ -262,7 +262,7 @@ Class Actions extends DBConnection{
     function get_queue(){
         extract($_POST);
         $qry = $this->query("SELECT * FROM `queue_list` where queue_id = '{$qid}' ");
-        @$res = $qry->fetchArray();
+        @$res = $qry->fetch_assoc();
             $resp['status']='success';
         if($res){
             $resp['queue']=$res['queue'];
@@ -276,7 +276,7 @@ Class Actions extends DBConnection{
     function next_queue(){
         extract($_POST);
         $get = $this->query("SELECT queue_id,`queue`,customer_name FROM `queue_list` where status = 0 and date(date_created) = '".date("Y-m-d")."' order by queue_id asc  limit 1");
-        @$res = $get->fetchArray();
+        @$res = $get->fetch_assoc();
         $resp['status']='success';
         if($res){
             $this->query("UPDATE `queue_list` set status = 1 where queue_id = '{$res['queue_id']}'");

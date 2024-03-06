@@ -12,7 +12,7 @@
                         <div id="serving-list" class="list-group overflow-auto">
                             <?php 
                             $cashier = $conn->query("SELECT * FROM `cashier_list` order by `name` asc");
-                            while($row = $cashier->fetchArray()):
+                            while($row = $cashier->fetch_assoc()):
                             ?>
                             <div class="list-group-item" data-id="<?php echo $row['cashier_id'] ?>" style="display:none">
                                 <div class="fs-5 fw-2 cashier-name border-bottom border-info"><?php echo $row['name'] ?></div>

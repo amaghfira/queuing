@@ -41,7 +41,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                             <option disabled selected></option>
                             <?php 
                             $cashier = $conn->query("SELECT * FROM `cashier_list` where `status` = 1 order by `name` asc");
-                            while($row = $cashier->fetchArray()):
+                            while($row = $cashier->fetch_assoc()):
                             ?>
                                 <option value="<?php echo $row['cashier_id'] ?>"><?php echo $row['name'] ?></option>
                             <?php endwhile; ?>
