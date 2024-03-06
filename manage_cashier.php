@@ -2,7 +2,7 @@
 require_once("DBConnection.php");
 if(isset($_GET['id'])){
 $qry = $conn->query("SELECT * FROM `cashier_list` where cashier_id = '{$_GET['id']}'");
-    foreach($qry->fetchArray() as $k => $v){
+    foreach($qry->fetch_assoc() as $k => $v){
         $$k = $v;
     }
 }

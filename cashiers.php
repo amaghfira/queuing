@@ -28,7 +28,7 @@
                 $sql = "SELECT * FROM `cashier_list`  order by `name` asc";
                 $qry = $conn->query($sql);
                 $i = 1;
-                    while($row = $qry->fetchArray()):
+                    while($row = $qry->fetch_assoc()):
                 ?>
                 <tr>
                     <td class="text-center p-0"><?php echo $i++; ?></td>
@@ -66,7 +66,7 @@
                     </th>
                 </tr>
                 <?php endwhile; ?>
-                <?php if(!$qry->fetchArray()): ?>
+                <?php if(!$qry->fetch_assoc()): ?>
                     <tr>
                         <th class="text-center p-0" colspan="5">No data display.</th>
                     </tr>

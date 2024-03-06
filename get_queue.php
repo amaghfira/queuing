@@ -2,7 +2,7 @@
 require_once('./DBConnection.php');
 if(isset($_GET['id'])){
     $qry = $conn->query("SELECT * FROM `queue_list` where queue_id = '{$_GET['id']}'");
-    @$res = $qry->fetchArray();
+    @$res = $qry->fetch_assoc();
     if($res){
         foreach($res as $k => $v){
             if(!is_numeric($k)){

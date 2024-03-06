@@ -1,7 +1,7 @@
 <?php
 require_once("DBConnection.php");
 $qry = $conn->query("SELECT * FROM `user_list` where user_id = '{$_SESSION['user_id']}'");
-    foreach($qry->fetchArray() as $k => $v){
+    foreach($qry->fetch_assoc() as $k => $v){
         $$k = $v;
     }
 ?>
