@@ -21,6 +21,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     <script src="./Font-Awesome-master/js/all.min.js"></script>
     <script src="./select2/js/select2.min.js"></script>
     <script src="./js/script.js"></script>
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
         :root{
             --bs-success-rgb:71, 222, 152 !important;
@@ -71,6 +74,15 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                                     <div class="form-group">
                                         <label for="customer_name" class="control-label text-info">Masukkan Nama</label>
                                         <input type="text" id="customer_name" name="customer_name" autofocus autocomplete="off" class="form-control form-control-lg rounded-0 border-0 border-bottom" required>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="jenis_layanan" class="control-label text-info">Pilih Jenis Layanan</label>
+                                        <select class="js-example-basic-single form-control form-control-lg rounded-0 border-0 border-bottom" id="jenis_layanan" name="jenis_layanan" required>
+                                            <option value="1">Konsultasi Statistik</option>
+                                            <option value="2">Penjualan</option>
+                                            <option value="3">Rekomendasi Statistik</option>
+                                        </select>
                                     </div>
                                     <div class="form-group text-center my-2">
                                         <button class="btn-primary btn-lg btn col-sm-4 rounded-0" type='submit'>Ambil Nomor</button>
@@ -176,6 +188,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                     })
             })
         })
+    </script>
+
+    <script>
+        // In your Javascript (external .js resource or <script> tag)
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
     </script>
 </body>
 </html>

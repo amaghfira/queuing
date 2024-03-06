@@ -248,7 +248,7 @@ Class Actions extends DBConnection{
         }
         $_POST['queue'] = $code;
         extract($_POST);
-        $sql = "INSERT INTO `queue_list` (`queue`,`customer_name`) VALUES('{$queue}','{$customer_name}')";
+        $sql = "INSERT INTO `queue_list` (`queue`,`customer_name`,`jenis_layanan`) VALUES('{$queue}','{$customer_name}','{$jenis_layanan}')";
         $save = $this->query($sql);
         if($save){
             $resp['status'] = 'success';
