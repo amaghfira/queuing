@@ -1,4 +1,4 @@
-<h3>Welcome to Cashier Queuing System</h3>
+<h3>Selamat Datang, ADMIN</h3>
 <hr>
 <div class="col-12">
     <div class="col-md-12">

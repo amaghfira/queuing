@@ -27,13 +27,13 @@
     </div>
 </div>
 <script>
-    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/queuing/php-sockets.php"); 
+    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/antri/php-sockets.php"); 
     websocket.onopen = function(event) { 
       console.log('socket is open!')
 		}
     websocket.onclose = function(event){
       console.log('socket has been closed!')
-    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/queuing/php-sockets.php"); 
+    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/antri/php-sockets.php"); 
     };
     var in_queue = {};
     function _resize_elements(){

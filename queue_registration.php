@@ -43,7 +43,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary bg-gradient" id="topNavBar">
         <div class="container">
             <a class="navbar-brand" href="./">
-            Queuing - Customer Registration
+            Registrasi Nomor Antrean
             </a>
         </div>
     </nav>
@@ -64,16 +64,16 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
                         <div class="card rouded-0 shadow">
                             <div class="card-header rounded-0">
-                                <div class="h5 card-title">Get your Queue Number Here.</div>
+                                <div class="h5 card-title">Ambil nomor antrean disini.</div>
                             </div>
                             <div class="card-body rounded-0">
                                 <form action="" id="queue-form">
                                     <div class="form-group">
-                                        <label for="customer_name" class="control-label text-info">Enter your Name</label>
+                                        <label for="customer_name" class="control-label text-info">Masukkan Nama</label>
                                         <input type="text" id="customer_name" name="customer_name" autofocus autocomplete="off" class="form-control form-control-lg rounded-0 border-0 border-bottom" required>
                                     </div>
                                     <div class="form-group text-center my-2">
-                                        <button class="btn-primary btn-lg btn col-sm-4 rounded-0" type='submit'>Get Queue</button>
+                                        <button class="btn-primary btn-lg btn col-sm-4 rounded-0" type='submit'>Ambil Nomor</button>
                                     </div>
                                 </form>
                             </div>
@@ -156,7 +156,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                         },
                         success:function(resp){
                             if(resp.status == 'success'){
-                                uni_modal("Your Queue","get_queue.php?success=true&id="+resp.id)
+                                uni_modal("Nomor Antrean Anda","get_queue.php?success=true&id="+resp.id)
                                 $('#uni_modal').on('hide.bs.modal',function(e){
                                     location.reload()
                                 })

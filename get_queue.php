@@ -19,7 +19,7 @@ if(isset($_GET['id'])){
 </style>
 <div class="container fluid">
     <?php if(isset($_GET['success']) && $_GET['success'] == true): ?>
-        <div class="alert alert-success">Your Queue Number is successfully generated.</div>
+        <div class="alert alert-success">Berhasil mendapatkan nomor antrean.</div>
     <?php endif; ?>
     <div id="outprint">
         <div class="row justify-content-end">

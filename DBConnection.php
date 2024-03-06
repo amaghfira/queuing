@@ -1,7 +1,7 @@
 <?php
 if(!is_dir(__DIR__.'./db'))
     mkdir(__DIR__.'./db');
-if(!defined('db_file')) define('db_file',__DIR__.'./db/cashier_queuing_db.db');
+if(!defined('db_file')) define('db_file','https://bpskaltim.com/antri/db/cashier_queuing_db.db');
 if(!defined('tZone')) define('tZone',"Asia/Singapore");
 if(!defined('dZone')) define('dZone',ini_get('date.timezone'));
 function my_udf_md5($string) {

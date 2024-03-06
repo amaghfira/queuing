@@ -40,13 +40,13 @@
     </div>
 </div>
 <script>
-    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/queuing/php-sockets.php"); 
+    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/antri/php-sockets.php"); 
     websocket.onopen = function(event) { 
       console.log('socket is open!')
 		}
     websocket.onclose = function(event){
       console.log('socket has been closed!')
-    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/queuing/php-sockets.php"); 
+    var websocket = new WebSocket("ws://<?php echo $_SERVER['SERVER_NAME'] ?>:1306/antri/php-sockets.php"); 
     };
     let tts = new SpeechSynthesisUtterance();
     tts.lang = "id-ID"; 
@@ -121,7 +121,7 @@
                         nitem.hide('slow')
                     }else{
                         nitem.show('slow')
-                        speak("Queue Number "+(Math.abs(resp.queue))+resp.name+", Silakan menuju ke "+cashier)
+                        speak("Nomor Antrian "+(Math.abs(resp.queue))+resp.name+", Silakan menuju ke "+cashier)
                     }
                 }
             }
