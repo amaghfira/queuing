@@ -32,11 +32,22 @@ if(isset($_GET['id'])){
         </div>
     </div>
     <div class="row my-2 mx-0 justify-content-end align-items-center">
-        <button class="btn btn-success rounded-0 me-2 col-sm-4" id="print" type="button"><i class="fa fa-print"></i> Print</button>
+        <button class="btn btn-success rounded-0 me-2 col-sm-4" id="print" type="button"><i class="fa fa-print"></i> Save</button>
         <button class="btn btn-dark rounded-0 col-sm-4" data-bs-dismiss="modal" type="button"><i class="fa fa-times"></i> Close</button>
     </div>
 </div>
-<script>
+<!-- save pdf -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script> -->
+
+<!-- save pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js" integrity="sha512-5wC3oH3tojdOtHBV6B4TXjlGc0E2uk3YViSrWnv1VUmmVlQDAs1lcupsqqpwjh8jIuodzADYK5xCL5Dkg/ving==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.js" integrity="sha512-nNkHPz+lD0Wf0eFGO0ZDxr+lWiFalFutgVeGkPdVgrG4eXDYUnhfEj9Zmg1QkrJFLC0tGs8ZExyU/1mjs4j93w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- script print -->
+<!-- <script>
     $(function(){
         $('#print').click(function(){
             var _el = $('<div>')
@@ -57,4 +68,51 @@ if(isset($_GET['id'])){
                 }, 500);
         })
     })
+</script> -->
+
+<!-- <script>
+    $(function(){
+        $('#print').click(function(){
+            // Capture the content of the element with the id "outprint" as an image
+            html2canvas(document.getElementById('outprint'), {
+                onrendered: function(canvas) {
+                    var imgData = canvas.toDataURL('image/png');
+
+                    // Create a PDF document
+                    var docDefinition = {
+                        content: [
+                            { image: imgData, width: 500 }
+                        ]
+                    };
+
+                    // Generate and save the PDF
+                    pdfMake.createPdf(docDefinition).download('queue_number.pdf');
+                }
+            });
+        });
+    });
+</script> -->
+
+<script>
+    $(function(){
+        $('#print').click(function(){
+            // Capture the content of the element with the id "outprint" as an image
+            html2canvas(document.getElementById('outprint'), {
+                onrendered: function(canvas) {
+                    var imgData = canvas.toDataURL('image/png');
+
+                    // Create a PDF document
+                    var docDefinition = {
+                        content: [
+                            { image: imgData, width: 500 }
+                        ]
+                    };
+
+                    // Generate and save the PDF
+                    pdfMake.createPdf(docDefinition).download('queue_number.pdf');
+                }
+            });
+        });
+    });
 </script>
+
