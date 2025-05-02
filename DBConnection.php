@@ -1,5 +1,5 @@
 <?php
-if(!defined('db_host')) define('db_host', '185.237.144.56'); // Modify host if necessary
+if(!defined('db_host')) define('db_host', '109.106.253.219'); // Modify host if necessary
 if(!defined('db_user')) define('db_user', 'u8152743_ipd'); // Modify username
 if(!defined('db_pass')) define('db_pass', 'ipd@6400'); // Modify password
 if(!defined('db_name')) define('db_name', 'u8152743_cashier_queuing_db'); // Modify database name

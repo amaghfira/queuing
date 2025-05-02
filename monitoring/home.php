@@ -80,8 +80,8 @@
         min = datetime.getMinutes()
         s = datetime.getSeconds()
         ampm = hour >= 12 ? "PM" : "AM";
-        mo = mos[datetime.getMonth()]
-        d = datetime.getDay()
+        mo = mos[datetime.getMonth() + 1]
+        d = datetime.getDate()
         yr = datetime.getFullYear()
         hour = hour >= 12 ? hour - 12 : hour;
         hour = String(hour).padStart(2,0)
